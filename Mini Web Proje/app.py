@@ -10,8 +10,10 @@ def home():
 def submit():
     name = request.form.get("name")
     is_checked = "isChecked" in request.form
-    # buraya bişi ekleyebilirim
-    return f"Name: {name}, Checkbox checked? {is_checked}"
+    with open("data.txt", "a") as f:
+        f.write(f"Name {name}, Checked? {is_checked}\n")
+    # return f"Name: {name}, Checkbox checked? {is_checked}"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
