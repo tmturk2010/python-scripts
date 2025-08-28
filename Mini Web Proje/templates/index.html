@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<body>
+<h1>Mini web proje</h1>
+<h2>Merhaba Dünya</h2>
+<img src="{{ url_for('static', filename='img/mavis.png') }}" alt="Maviş">
+<form action="/submit" method="post">
+<label for="name">Deneme</label>
+<input type="text" id="name" name="name" required placeholder="Rastgele yaz">
+<input type="checkbox" id="isChecked" name="isChecked">
+<input type="submit">
+</form>
+</body>    
+</head>
+</html>

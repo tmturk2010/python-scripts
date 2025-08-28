@@ -1,0 +1,9 @@
+html, body {
+    background-color: rgb(255, 0, 0);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+
+h1{
+    color: black;
+}
