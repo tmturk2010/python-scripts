@@ -6,25 +6,26 @@ Bu repo, boş zamanlarımda yazdığım küçük Python programlarını içeriyo
 
 Reponun tamamını klonla:
 
-'''bash
-git clone https://github.com/tmturk2010/python-scripts.git
-cd python-scripts
+```
+git clone https://github.com/tmturk2010/python-scripts.git'
+'cd python-scripts
+```
 
 
 Gerekli kütüphaneleri yükle (daha yapamadım sorry):
-
+```
 pip install -r requirements.txt
-
+```
 ## 🚀 Kullanım
 
 Her script için:
-
+```
 python <script_adi>.py
-
+```
 Örneğin:
-
+```
 python sıcaklıkdönüştür.py
-
+```
 ## 🤝 Katkıda Bulunma
 
 Fork yap, değişikliklerini ekle, pull request gönder.
