@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+Life Companion/.env
+Life Companion/__pycache__/
+Life Companion/*.pyc
