@@ -83,7 +83,7 @@ elif menusec == "4":
                 img = Image.open(BytesIO(thumb_response.content))
                 img.show()
     except Exception as e:
-        print("APOD verisi alınamadı:", e)
+        print("APOD verisi alınamadı (Günün ilk saatleri yeni veriler gelmediğinden dolayı bir önceki günün tarihini yazınız):", e)
 
 elif menusec == "5":
     try:

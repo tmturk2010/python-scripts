@@ -16,6 +16,9 @@ Gerekli kütüphaneleri yükle (daha yapamadım sorry):
 ```
 pip install -r requirements.txt
 ```
+
+## 🪲Hatalar
+- "/Life Companion/lifecomp.py"da Günün uzay fotoğrafı mobil cihazlarda otomatik gözükmüyor, bilgisayarlarda standart fotoğraf görüntüleyici ile gösteriyor. Terminal ekranında fotoğraf görünümü yakında gelicek
 ## 🚀 Kullanım
 
 Her script için:
