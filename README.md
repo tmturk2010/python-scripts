@@ -7,8 +7,8 @@ Bu repo, boş zamanlarımda yazdığım küçük Python programlarını içeriyo
 Reponun tamamını klonla:
 
 ```
-git clone https://github.com/tmturk2010/python-scripts.git'
-'cd python-scripts
+git clone https://github.com/tmturk2010/python-scripts.git
+cd python-scripts
 ```
 
 
