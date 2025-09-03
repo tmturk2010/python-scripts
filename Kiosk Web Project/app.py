@@ -6,12 +6,9 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
     
-@app.route("/submit", methods=["POST"])
-def submit():
-    name = request.form.get("name")
-    with open("data.txt", "a") as f:
-        f.write(f"Name {name}\n")
-        return f"Name: {name}"
+@app.route("/product")
+def product():
+    return render_template("product.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
