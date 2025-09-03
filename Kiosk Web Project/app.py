@@ -10,5 +10,9 @@ def home():
 def product():
     return render_template("product.html")
 
+@app.route("/cart")
+def cart():
+    return render_template("cart.html")
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
