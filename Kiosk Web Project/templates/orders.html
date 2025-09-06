@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siparişler</title>
+</head>
+<body>
+    <h1>Siparişler</h1>
+    {% if orders %}
+        <ul>
+        {% for order in orders %}
+            <li>
+                <strong>Masa:</strong> {{ order.table_number }}<br>
+                <strong>Zaman:</strong> {{ order.timestamp }}<br>
+                <strong>Toplam:</strong> {{ order.total }}₺<br>
+                <strong>Ürünler:</strong>
+                <ul>
+                {% for item in order['items'] %}
+                    <li>{{ item.name }} - {{ item.price }}₺ x {{ item.quantity }}</li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Henüz sipariş yok.</p>
+    {% endif %}
+    <form action="{{ url_for('menu') }}" method="get" style="margin-top:20px;">
+        <button type="submit">Menüye Dön</button>
+    </form>
+</body>
+</html>

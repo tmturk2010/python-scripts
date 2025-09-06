@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menü</title>
+</head>
+<body>
+    <h1>Menü</h1>
+    <ul>
+    {% for item in menu %}
+        <li>
+            {{ item.name }} - {{ item.price }}₺
+            <form action="{{ url_for('add_to_cart', item_id=item.id) }}" method="get" style="display:inline;">
+                <button type="submit">Sepete Ekle</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+    <form action="{{ url_for('cart') }}" method="get" style="display:inline;">
+        <button type="submit">Sepeti Gör</button>
+    </form>
+    <form action="{{ url_for('logout') }}" method="get" style="margin-top:20px;">
+        <button type="submit">Çıkış Yap</button>
+    </form>
+</body>
+</html>

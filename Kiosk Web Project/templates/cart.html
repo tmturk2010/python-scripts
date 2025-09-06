@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Sepet</title>
 </head>
 <body>
-<h1>Sepet</h1>
+    <h1>Sepet</h1>
+    {% if cart %}
+        <ul>
+    {% for item in cart %}
+        <li>{{ item.name }} - {{ item.price }}₺ x {{ item.quantity }} = {{ item.price * item.quantity }}₺</li>
+    {% endfor %}
+    </ul>
+    <h3>Toplam: {{ total }}₺</h3>
+    <form action="{{ url_for('submit_order') }}" method="post" style="margin-top:20px;">
+        <button type="submit">Siparişi Gönder</button>
+    </form>
+    {% else %}
+        <p>Sepet boş.</p>
+    {% endif %}
+    <form action="{{ url_for('menu') }}" method="get" style="display:inline;">
+        <button type="submit">Menüye Dön</button>
+    </form>
 </body>
+</html>
