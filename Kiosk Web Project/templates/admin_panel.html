@@ -5,7 +5,9 @@
 </head>
 <body>
     <h1>Admin Paneli</h1>
-    <a href="/admin_logout">Çıkış Yap</a>
+    <form action="{{ url_for('admin_logout') }}" method="post" style="display:inline;">
+    <button type="submit">Çıkış Yap</button>
+</form>
     <p>Burada henüz bir şey yok.</p>
 </body>
 </html>

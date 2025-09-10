@@ -145,7 +145,7 @@ def admin_login():
             error = "Hatalı kullanıcı adı veya şifre."
     return render_template("admin_login.html", error=error)
 
-@app.route("/admin_logout")
+@app.route("/admin_logout", methods=["GET"])
 def admin_logout():
     session.pop("admin_logged_in", None)
     return redirect(url_for("admin_login"))
