@@ -35,20 +35,24 @@ menusec = input(
     "1: Bu Ayın Takvimi\n"
     "2: Bugün Günlerden Ne?\n"
     "3: Hava Durumu Raporu\n"
-    "4: Günün Uzay Fotoğrafı (NASA Tarafından)\n"
-    "5: Döviz\n> "
+    "4: Günün Uzay Fotoğrafı (NASA Tarafından) (SİLİNECEK!)\n"
+    "5: Döviz\n"
+    "Sil: Verilerimi sil\n>"
 )
 
 print()
 
+# takvim
 if menusec == "1":
     today = datetime.date.today()
     print(calendar.month(today.year, today.month))
 
+# bugün
 elif menusec == "2":
     now = datetime.datetime.now()
     print("Tarih ve Saat:", now.strftime("%d/%m/%Y %H:%M"))
 
+# hava durumu
 elif menusec == "3":
     location = input("Hangi şehir için hava durumunu görmek istiyorsun?\n> ")
     url = f"http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={location}&aqi=yes"
@@ -61,6 +65,7 @@ elif menusec == "3":
     except Exception as e:
         print("Hava durumu alınamadı:", e)
 
+# NASA uzay fotoğrafı (SİLİNECEK!)
 elif menusec == "4":
     date = input("Hangi günün uzay fotoğrafını görmek istersiniz? (YYYY-AA-GG, boşsa bugün)\n> ")
     if not date:
@@ -85,6 +90,7 @@ elif menusec == "4":
     except Exception as e:
         print("APOD verisi alınamadı (Günün ilk saatleri yeni veriler gelmediğinden dolayı bir önceki günün tarihini yazınız):", e)
 
+# döviz
 elif menusec == "5":
     try:
         # USD -> TRY
@@ -96,16 +102,27 @@ elif menusec == "5":
         url_eur = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=EUR"
         eur_data = requests.get(url_eur).json()
         eur_try = eur_data['data']['TRY']['value']
+        
+        # BTC -> USD
         url_btc = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=BTC"
         btc_data = requests.get(url_btc).json()
         btc_usd = btc_data['data']['USD']['value']
 
-        print(f"1 Dolar = {usd_try:.2f} TL")
-        print(f"1 Euro  = {eur_try:.2f} TL")
-        print(f"1 Bitcoin = {btc_usd:.2f} USD")
+        print(f"1 Dolar = {usd_try:.2f} ₺")
+        print(f"1 Euro  = {eur_try:.2f} ₺")
+        print(f"1 Bitcoin = {btc_usd:.2f} $")
 
     except Exception as e:
         print("Döviz verileri alınamadı:", e)
+        
+# hesap sil
+elif menusec == "Sil":
+    emin = input("Verilerinizi silmek istediğinize emin misiniz?\nEvet\nHayır\n>")
+    if emin == "Evet":
+        os.remove(filename)
+        print("İşlem başarıyla tamamlandı")
+    else:
+        print("İşlem iptal edildi")
 
 else:
     print("Hatalı tuşlama yaptınız")
