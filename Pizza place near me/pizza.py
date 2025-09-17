@@ -4,8 +4,15 @@ import folium
 import time
 import sys
 import csv
+import os
+from dotenv import load_dotenv
 
-gp_api_key = "AIzaSyAj8FLsd4h0jO9aUzsNZKiyQo3YJHfb_ZI"  # <-- BURAYA Google Places API anahtarını koy
+# .env yükle
+dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path)
+
+# API Keyler
+gp_api_key = os.getenv("GP_API_KEY")
 
 # Eğer IP tabanlı konum alınamazsa kullanıcıdan koordinat isteyecek
 def get_location():
