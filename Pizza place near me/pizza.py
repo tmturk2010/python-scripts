@@ -7,7 +7,7 @@ import csv
 
 gp_api_key = "AIzaSyAj8FLsd4h0jO9aUzsNZKiyQo3YJHfb_ZI"  # <-- BURAYA Google Places API anahtarını koy
 
-# Eğer IP tabanlı konum alınamazsa kullanıcıdan koordinat isteyecek.
+# Eğer IP tabanlı konum alınamazsa kullanıcıdan koordinat isteyecek
 def get_location():
     g = geocoder.ip('me')
     if g.ok and g.latlng:
@@ -23,8 +23,10 @@ def get_location():
         print("Geçersiz format, İstanbul merkezi kullanılacak.")
         return 41.0082, 28.9784
 
+keyword = input("Ne aratmak istersiniz (sadece restoran türleri) ?\n>")
+
 # Google Places Nearby Search ile pizzacıları ara. (keyword='pizza')
-def search_places(lat, lon, radius=2000, keyword="pizza"):
+def search_places(lat, lon, radius=2000, keyword=keyword):
     url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
     results = []
     params = {
@@ -67,7 +69,7 @@ def search_places(lat, lon, radius=2000, keyword="pizza"):
 
     return results
 
-def save_csv(results, filename='pizzacilar.csv'):
+def save_csv(results, filename='gmaps.csv'):
     if not results:
         return
     with open(filename, 'w', newline='', encoding='utf-8') as f:
@@ -76,7 +78,7 @@ def save_csv(results, filename='pizzacilar.csv'):
         for r in results:
             writer.writerow(r)
 
-def make_map(user_lat, user_lon, results, filename='pizzacilar.html'):
+def make_map(user_lat, user_lon, results, filename='gmaps.html'):
     m = folium.Map(location=[user_lat, user_lon], zoom_start=14)
     folium.Marker([user_lat, user_lon], popup='Senin konumun', icon=folium.Icon(color='red')).add_to(m)
     for p in results:
@@ -84,6 +86,7 @@ def make_map(user_lat, user_lon, results, filename='pizzacilar.html'):
         folium.Marker([p['lat'], p['lon']], popup=popup_text).add_to(m)
     m.save(filename)
 
+# burasının ne olduğunu bilmiyorum ama silince bozuluyor
 def main():
     if not gp_api_key or gp_api_key == "[Burayı ben doldurcam]":
         print("Lütfen dosyanın en üstündeki gp_api_key değişkenine Google Places API anahtarını koy ve tekrar çalıştır.")
@@ -99,16 +102,16 @@ def main():
         sys.exit(1)
 
     if not results:
-        print("Belirtilen yarıçap içinde pizzacı bulunamadı.")
+        print("Belirtilen yarıçap içinde", keyword, "bulunamadı.")
         sys.exit(0)
 
-    print(f"\nBulunan pizzacı sayısı: {len(results)}\n")
+    print("\nBulunan", keyword, f"sayısı: {len(results)}\n")
     for i, p in enumerate(results, 1):
         print(f"{i}. {p['name']} - {p.get('address','-')} (lat:{p['lat']}, lon:{p['lon']}) | Rating: {p.get('rating','-')} ({p.get('user_ratings_total',0)} yorum)")
 
     save_csv(results)
     make_map(lat, lon, results)
-    print("\n'pizzacilar.csv' ve 'pizzacilar.html' oluşturuldu. 'pizzacilar.html' tarayıcıda açılarak harita görüntülenebilir.")
+    print("\n'gmaps.csv' ve 'gmaps.html' oluşturuldu. 'gmaps.html' tarayıcıda açılarak harita görüntülenebilir.")
 
 if __name__ == '__main__':
     main()

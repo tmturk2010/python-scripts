@@ -35,7 +35,7 @@ menusec = input(
     "1: Bu Ayın Takvimi\n"
     "2: Bugün Günlerden Ne?\n"
     "3: Hava Durumu Raporu\n"
-    "4: Günün Uzay Fotoğrafı (NASA Tarafından) (SİLİNECEK!)\n"
+    "4: Günün Uzay Fotoğrafı (NASA Tarafından) (YAKINDA SİLİNECEK!)\n"
     "5: Döviz\n"
     "Sil: Verilerimi sil\n>"
 )

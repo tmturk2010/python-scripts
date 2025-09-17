@@ -15,11 +15,11 @@ menu_items = [
     {"id": 3, "name": "Lahmacun", "price": 50},
 ]
 
-# Hardcoded admin credentials
+# Değiştirilemez admin bilgileri
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "password123"
 
-# Decorator for admin login required
+# admin_login_required için def
 def admin_login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -112,7 +112,6 @@ def login():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
-    # Only allow logout if logged in as a table
     if "table" not in session:
         return redirect(url_for("login"))
     error = None
