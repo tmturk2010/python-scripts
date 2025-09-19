@@ -12,7 +12,6 @@ load_dotenv(dotenv_path)
 
 # API Keyler
 weather_api_key = os.getenv("WEATHER_API_KEY")
-nasa_api_key = os.getenv("NASA_API_KEY")
 currency_api_key = os.getenv("CURRENCY_API_KEY")
 
 filename = "names.txt"
@@ -67,28 +66,7 @@ elif menusec == "3":
 
 # NASA uzay fotoğrafı (SİLİNECEK!)
 elif menusec == "4":
-    date = input("Hangi günün uzay fotoğrafını görmek istersiniz? (YYYY-AA-GG, boşsa bugün)\n> ")
-    if not date:
-        date = datetime.date.today().isoformat()
-    apod_url = f"https://api.nasa.gov/planetary/apod?api_key={nasa_api_key}&date={date}"
-    try:
-        apod = requests.get(apod_url).json()
-        print(f"\nTarih: {apod['date']}")
-        print(f"Başlık: {apod['title']}")
-        print(f"Açıklama: {apod['explanation']}\n")
-        print(f"Medya Türü: {apod['media_type']}")
-        if apod['media_type'] == 'image':
-            response = requests.get(apod['url'])
-            img = Image.open(BytesIO(response.content))
-            img.show()
-        elif apod['media_type'] == 'video':
-            print(f"Video URL: {apod['url']}")
-            if 'thumbnail_url' in apod:
-                thumb_response = requests.get(apod['thumbnail_url'])
-                img = Image.open(BytesIO(thumb_response.content))
-                img.show()
-    except Exception as e:
-        print("APOD verisi alınamadı (Günün ilk saatleri yeni veriler gelmediğinden dolayı bir önceki günün tarihini yazınız):", e)
+    print("SİLİNDİ")
 
 # döviz
 elif menusec == "5":
