@@ -3,11 +3,12 @@ __pycache__/
 *.pyc
 *.db
 Life Companion/.env
-Life Companion/__pycache__/
 Life Companion/*.pyc
 Life Companion/names.txt
 Pizza place near me/gmaps.html
 Pizza place near me/gmaps.csv
 Pizza place near me/.env
 Kiosk Web Project/kiosk.db
-Berber App
+Berber App/*
+!Berber App/Oku Beni.txt
+!Berber App/Read Me.txt
