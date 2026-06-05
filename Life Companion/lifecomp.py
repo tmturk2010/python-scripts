@@ -1,4 +1,5 @@
 import os
+import time
 import datetime
 import calendar
 import requests
@@ -10,11 +11,11 @@ from io import BytesIO
 dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(dotenv_path)
 
-# API Keyler
+# api keyler
 weather_api_key = os.getenv("WEATHER_API_KEY")
 currency_api_key = os.getenv("CURRENCY_API_KEY")
 
-filename = "names.txt"
+filename = os.path.join(os.path.dirname(__file__), "names.txt")
 
 try:
     with open(filename, "r") as f:
@@ -29,78 +30,88 @@ except FileNotFoundError:
         f.write(name)
     print(f"\nMerhaba {name}, isminiz sisteme kaydedildi!\n")
 
-menusec = input(
-    "Lütfen yapmak istediğiniz işlemi seçiniz:\n"
-    "1: Bu Ayın Takvimi\n"
-    "2: Bugün Günlerden Ne?\n"
-    "3: Hava Durumu Raporu\n"
-    "4: Günün Uzay Fotoğrafı (NASA Tarafından) (YAKINDA SİLİNECEK!)\n"
-    "5: Döviz\n"
-    "Sil: Verilerimi sil\n>"
-)
+while True:
+    menusec = input(
+        "Lütfen yapmak istediğiniz işlemi seçiniz:\n"
+        "1: Bu Ayın Takvimi\n"
+        "2: Bugün Günlerden Ne?\n"
+        "3: Hava Durumu Raporu\n"
+        "4: Günün Uzay Fotoğrafı (NASA Tarafından) (YAKINDA SİLİNECEK!)\n"
+        "5: Döviz\n"
+        "Sil: Verilerimi sil\n>"
+    )
 
-print()
+    print()
 
-# takvim
-if menusec == "1":
-    today = datetime.date.today()
-    print(calendar.month(today.year, today.month))
+    # takvim
+    if menusec == "1":
+        today = datetime.date.today()
+        print(calendar.month(today.year, today.month))
 
-# bugün
-elif menusec == "2":
-    now = datetime.datetime.now()
-    print("Tarih ve Saat:", now.strftime("%d/%m/%Y %H:%M"))
+    # bugün
+    elif menusec == "2":
+        now = datetime.datetime.now()
+        print("Tarih ve Saat:", now.strftime("%d/%m/%Y %H:%M"))
 
-# hava durumu
-elif menusec == "3":
-    location = input("Hangi şehir için hava durumunu görmek istiyorsun?\n> ")
-    url = f"http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={location}&aqi=yes"
-    try:
-        response = requests.get(url).json()
-        print(f"\n{response['location']['name']}, {response['location']['country']}")
-        print(f"Sıcaklık: {response['current']['temp_c']}°C")
-        print(f"Hava: {response['current']['condition']['text']}")
-        print(f"Hava Kalitesi (US-EPA): {response['current']['air_quality']['us-epa-index']}")
-    except Exception as e:
-        print("Hava durumu alınamadı:", e)
+    # hava durumu
+    elif menusec == "3":
+        location = input("Hangi şehir için hava durumunu görmek istiyorsun?\n> ")
+        url = f"http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={location}&aqi=yes"
+        try:
+            response = requests.get(url).json()
+            print(f"\n{response['location']['name']}, {response['location']['country']}")
+            print(f"Sıcaklık: {response['current']['temp_c']}°C")
+            print(f"Hava: {response['current']['condition']['text']}")
+            print(f"Hava Kalitesi (US-EPA): {response['current']['air_quality']['us-epa-index']}")
+        except Exception as e:
+            print("Hava durumu alınamadı:", e)
 
-# NASA uzay fotoğrafı (SİLİNECEK!)
-elif menusec == "4":
-    print("SİLİNDİ")
+    # NASA uzay fotoğrafı (SİLİNECEK!)
+    elif menusec == "4":
+        print("SİLİNDİ")
 
-# döviz
-elif menusec == "5":
-    try:
-        # USD -> TRY
-        url_usd = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=USD"
-        usd_data = requests.get(url_usd).json()
-        usd_try = usd_data['data']['TRY']['value']
+    # döviz
+    elif menusec == "5":
+        try:
+            # USD -> TRY
+            url_usd = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=USD"
+            usd_data = requests.get(url_usd).json()
+            usd_try = usd_data['data']['TRY']['value']
 
-        # EUR -> TRY
-        url_eur = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=EUR"
-        eur_data = requests.get(url_eur).json()
-        eur_try = eur_data['data']['TRY']['value']
-        
-        # BTC -> USD
-        url_btc = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=BTC"
-        btc_data = requests.get(url_btc).json()
-        btc_usd = btc_data['data']['USD']['value']
+            # EUR -> TRY
+            url_eur = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=EUR"
+            eur_data = requests.get(url_eur).json()
+            eur_try = eur_data['data']['TRY']['value']
+            
+            # BTC -> USD
+            url_btc = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=BTC"
+            btc_data = requests.get(url_btc).json()
+            btc_usd = btc_data['data']['USD']['value']
 
-        print(f"1 Dolar = {usd_try:.2f} ₺")
-        print(f"1 Euro  = {eur_try:.2f} ₺")
-        print(f"1 Bitcoin = {btc_usd:.2f} $")
+            print(f"1 Dolar = {usd_try:.2f} ₺")
+            print(f"1 Euro  = {eur_try:.2f} ₺")
+            print(f"1 Bitcoin = {btc_usd:.2f} $")
 
-    except Exception as e:
-        print("Döviz verileri alınamadı:", e)
-        
-# hesap sil
-elif menusec == "Sil":
-    emin = input("Verilerinizi silmek istediğinize emin misiniz?\nEvet\nHayır\n>")
-    if emin == "Evet":
-        os.remove(filename)
-        print("İşlem başarıyla tamamlandı")
+        except Exception as e:
+            print("Döviz verileri alınamadı:", e)
+            
+    # hesap sil
+    elif menusec == "Sil":
+        emin = input("Verilerinizi silmek istediğinize emin misiniz?\nEvet\nHayır\n>")
+        if emin == "Evet":
+            os.remove(filename)
+            print("İşlem başarıyla tamamlandı")
+        else:
+            print("İşlem iptal edildi")
+
     else:
-        print("İşlem iptal edildi")
-
-else:
-    print("Hatalı tuşlama yaptınız")
+        print("Hatalı tuşlama yaptınız")
+    
+    # devam?
+    print()
+    devam = input("Devam etmek istiyor musunuz? (Evet/Hayır)\n> ").strip().lower()
+    if devam != "evet":
+        print("Hoşça kalın!")
+        time.sleep(2)
+        break
+    print()
