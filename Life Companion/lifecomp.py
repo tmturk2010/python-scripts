@@ -1,3 +1,4 @@
+# importlar
 import os
 import time
 import datetime
@@ -15,8 +16,10 @@ load_dotenv(dotenv_path)
 weather_api_key = os.getenv("WEATHER_API_KEY")
 currency_api_key = os.getenv("CURRENCY_API_KEY")
 
+# isimler dosyasının yer belirteci
 filename = os.path.join(os.path.dirname(__file__), "names.txt")
 
+# isimler dosyasını aç
 try:
     with open(filename, "r") as f:
         name = f.read().strip()
@@ -24,20 +27,21 @@ try:
             print(f"Hoş geldiniz, {name}!\n")
         else:
             raise FileNotFoundError
+# dosya yoksa isim sorup dosya oluştur
 except FileNotFoundError:
     name = input("Adınızı girin:\n> ")
     with open(filename, "w") as f:
         f.write(name)
     print(f"\nMerhaba {name}, isminiz sisteme kaydedildi!\n")
 
+# menü seçme ekranı işte ya mal mısın neyini anlamadın
 while True:
     menusec = input(
         "Lütfen yapmak istediğiniz işlemi seçiniz:\n"
         "1: Bu Ayın Takvimi\n"
         "2: Bugün Günlerden Ne?\n"
         "3: Hava Durumu Raporu\n"
-        "4: Günün Uzay Fotoğrafı (NASA Tarafından) (YAKINDA SİLİNECEK!)\n"
-        "5: Döviz\n"
+        "4: Döviz\n"
         "Sil: Verilerimi sil\n>"
     )
 
@@ -63,15 +67,12 @@ while True:
             print(f"Sıcaklık: {response['current']['temp_c']}°C")
             print(f"Hava: {response['current']['condition']['text']}")
             print(f"Hava Kalitesi (US-EPA): {response['current']['air_quality']['us-epa-index']}")
+        # int yoksa diye fln hata mesajı
         except Exception as e:
             print("Hava durumu alınamadı:", e)
 
-    # NASA uzay fotoğrafı (SİLİNECEK!)
-    elif menusec == "4":
-        print("SİLİNDİ")
-
     # döviz
-    elif menusec == "5":
+    elif menusec == "4":
         try:
             # USD -> TRY
             url_usd = f"https://api.currencyapi.com/v3/latest?apikey={currency_api_key}&base_currency=USD"
@@ -91,11 +92,11 @@ while True:
             print(f"1 Dolar = {usd_try:.2f} ₺")
             print(f"1 Euro  = {eur_try:.2f} ₺")
             print(f"1 Bitcoin = {btc_usd:.2f} $")
-
+        # int fln yoksa veri alamzsa hata veriyo işte
         except Exception as e:
             print("Döviz verileri alınamadı:", e)
             
-    # hesap sil
+    # hesap sileceği
     elif menusec == "Sil":
         emin = input("Verilerinizi silmek istediğinize emin misiniz?\nEvet\nHayır\n>")
         if emin == "Evet":
@@ -103,7 +104,8 @@ while True:
             print("İşlem başarıyla tamamlandı")
         else:
             print("İşlem iptal edildi")
-
+    
+    # önünde yazan numaraları yazamıyacak kadar salak olanlar için hata mesajı
     else:
         print("Hatalı tuşlama yaptınız")
     
@@ -112,6 +114,6 @@ while True:
     devam = input("Devam etmek istiyor musunuz? (Evet/Hayır)\n> ").strip().lower()
     if devam != "evet":
         print("Hoşça kalın!")
-        time.sleep(2)
+        time.sleep(2)  # hoşçakalın dedikten sonra 2sn bekletiyo
         break
     print()

@@ -1,0 +1,1 @@
+çok bişi yok okucak ya, .env.example'a bak, orayı doldur sonra onun ismini .env yap çalıştır sonra
