@@ -4,6 +4,7 @@ import time
 import datetime
 import calendar
 import requests
+from datetime import date
 from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
@@ -11,6 +12,9 @@ from io import BytesIO
 # .env yükle
 dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(dotenv_path)
+
+# şuanki yılı year değişkenine kaydet
+year = date.today().year
 
 # api keyler
 weather_api_key = os.getenv("WEATHER_API_KEY")
@@ -30,9 +34,11 @@ try:
 # dosya yoksa isim sorup dosya oluştur
 except FileNotFoundError:
     name = input("Adınızı girin:\n> ")
+    byear = int(input("Doğum yılınızı giriniz:\n>"))
     with open(filename, "w") as f:
         f.write(name)
-    print(f"\nMerhaba {name}, isminiz sisteme kaydedildi!\n")
+        f.write(str(byear))
+    print(f"\nMerhaba {name}, isminiz ve yaşınız sisteme kaydedildi!\n")
 
 # menü seçme ekranı işte ya mal mısın neyini anlamadın
 while True:
@@ -42,6 +48,7 @@ while True:
         "2: Bugün Günlerden Ne?\n"
         "3: Hava Durumu Raporu\n"
         "4: Döviz\n"
+        "5: Reşit Miyim?\n"
         "Sil: Verilerimi sil\n>"
     )
 
@@ -95,6 +102,12 @@ while True:
         # int fln yoksa veri alamzsa hata veriyo işte
         except Exception as e:
             print("Döviz verileri alınamadı:", e)
+
+    elif menusec == "5":
+        if year - byear >18:
+            print("Reşitsiniz!")
+        else:
+            print("Reşit değilsiniz!")
             
     # hesap sileceği
     elif menusec == "Sil":
