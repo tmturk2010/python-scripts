@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ## 🪲Hatalar
 - Bildiğim kadarıyla yok
 ## Bildiri
-Life Companion başka bir repository'ye taşındı:
+Life Companion başka bir repository'ye taşındı:  
 https://github.com/tmturk2010/life_companion
 ## 🚀 Kullanım
 
