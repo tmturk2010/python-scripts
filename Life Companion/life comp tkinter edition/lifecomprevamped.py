@@ -33,22 +33,33 @@ frm.grid()
 
 lifecompapp.master.title("Life Companion")
 
+def save_input():
+    isim_var = isim_var.get()
+
+isim_var = tk.StringVar()
+
 # isimler dosyasını aç
 try:
     with open(filename, "r") as f:
-        name = f.read().strip()
-        if name:
-            hosgeldinmesaj = ttk.Label(frm, text=f"Hoş geldiniz, {name}!")
+        isim_var = f.read().strip()
+        if isim_var:
+            hosgeldinmesaj = ttk.Label(frm, text=f"Hoş geldiniz, {isim_var}!")
             hosgeldinmesaj.grid(column=0, row=0, pady=(0, 10))
         else:
             raise FileNotFoundError
 
+
 # dosya yoksa isim sorup dosya oluştur
 except FileNotFoundError:
-    name = input("Adınızı girin:> ")
+    isim_label = tk.Label(lifecompapp, text="Adınızı giriniz:")
+    isim_label.grid(column=0, row=0)
+    isim_kaydet = tk.Entry(lifecompapp, textvariable=isim_var)
+    isim_kaydet.grid(column=0, row=0)
+    kaydet_dugme = tk.Button(lifecompapp, text="Kaydet", command=save_input)
+    kaydet_dugme.grid(column=0, row=1)
     with open(filename, "w") as f:
-        f.write(name)
-    hosgeldinmesajyeni = ttk.Label(frm, text=f"Merhaba {name}, isminiz sisteme kaydedildi!")
+        f.write(isim_var)
+    hosgeldinmesajyeni = ttk.Label(frm, text=f"Merhaba {isim_var}, isminiz sisteme kaydedildi!")
     hosgeldinmesajyeni.grid(column=0, row=0, pady=(0, 10))
 
 cikisdugme = ttk.Button(frm, text="Çıkış", command=lifecompapp.quit)

@@ -1,20 +1,18 @@
 import tkinter as tk
-from tkinter import ttk
 
-# Initialize the main window
+# 1. Define the function first so the button can see it
+def save_input():
+    user_text = entry_box.get()  # <--- This is the "quick" grab
+    print(user_text)
+
 root = tk.Tk()
-root.title("Exit Application Example")
-root.geometry("300x100")
 
-# Create a parent frame container
-frm = ttk.Frame(root, padding=10)
-frm.grid()
+# 2. Create the box
+entry_box = tk.Entry(root)
+entry_box.pack()
 
-# Add a label widget at column 0, row 0
-ttk.Label(frm, text="Click to exit:").grid(column=0, row=0, padx=5)
+# 3. Create the button LAST, pointing to the function above
+button = tk.Button(root, text="Save", command=save_input)
+button.pack()
 
-# Your button snippet placed at column 1, row 0
-ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0, padx=5)
-
-# Start the application event loop
 root.mainloop()
